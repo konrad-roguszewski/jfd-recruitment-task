@@ -1,3 +1,5 @@
+import { ControlPanel } from "../components/ControlPanel";
+import { MealPlan } from "../components/MealPlan";
 import styled from "styled-components";
 
 const Root = styled.div`
@@ -5,14 +7,15 @@ const Root = styled.div`
   width: 1024px;
   background-color: #f9f9f9;
   display: flex;
-  border: 1px dashed black;
+  flex-direction: column;
   margin: 0 auto;
 `;
 
 export const Dashboard = () => {
   return (
     <Root>
-      Dashboard
+      <ControlPanel />
+      <MealPlan />
     </Root>
   );
 };
