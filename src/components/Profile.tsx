@@ -9,6 +9,8 @@ const Root = styled.div`
 const StyledImage = styled.img`
   border: 1px solid ${props => props.theme.graphite};
   border-radius: 50%;
+  height: 36px;
+  width: 36px;
 `;
 
 const StyledLink = styled.a`
