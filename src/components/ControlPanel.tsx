@@ -6,6 +6,8 @@ import styled from "styled-components";
 const Root = styled.div`
   height: 110px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const ControlPanel = () => {
