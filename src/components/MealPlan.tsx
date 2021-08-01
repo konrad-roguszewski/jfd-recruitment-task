@@ -8,54 +8,6 @@ import styled from 'styled-components';
 import shakeActive from '../images/shakeActive.png';
 import shakeDisabled from '../images/shakeDisabled.png';
 
-const StyledTable = styled.table`
-  display: grid;
-  border-collapse: collapse;
-  min-width: 100%;
-  grid-template-columns:
-    minmax(80px, 1fr)
-    minmax(125px, 1fr)
-    minmax(125px, 1fr)
-    minmax(125px, 1fr)
-    minmax(125px, 1fr)
-    minmax(125px, 1fr)
-    minmax(125px, 1fr)
-    minmax(125px, 1fr);
-  border: 1px solid ${props => props.theme.lightGray};
-  border-radius: 10px;
-  background: ${props => props.theme.white};
-  color: ${props => props.theme.graphite};
-  thead,
-  tbody,
-  tr {
-    display: contents;
-  }
-  th,
-  td {
-    padding: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  th {
-    position: sticky;
-    top: 0;
-    text-align: left;
-    font-weight: normal;
-    border: 1px solid ${props => props.theme.darkGray};
-  }
-  th:last-child,
-  th:first-child {
-    border: 0;
-  }
-  td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 12px;
-    border: 1px solid ${props => props.theme.darkGray};
-  }
-`;
-
 const CellContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,101 +23,163 @@ const CheckMarkIcon = styled(BiCheckCircle)`
   color: ${props => props.theme.orange};
 `;
 
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  min-width: 100%;
+  border-radius: 8px;
+  background: ${props => props.theme.white};
+  color: ${props => props.theme.graphite};
+  th,
+  td {
+    padding: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  th {
+    top: 0;
+    text-align: left;
+    font-weight: bold;
+    border: 2px solid ${props => props.theme.mediumGray};
+    border-top: 0;
+    text-transform: uppercase;
+    color: ${props => props.theme.green};
+    font-size: 18px;
+    text-align: center;
+    &.active {
+      color: ${props => props.theme.orange};
+    }
+  }
+  th:last-child,
+  th:first-child {
+    border: 0;
+  }
+  th:first-child {
+    background: ${props => props.theme.mediumGray};
+    border-radius: 8px 0 0 0;
+  }
+  td {
+    padding-top: 10px;
+    padding-bottom: 0px;
+    font-size: 12px;
+    border: 2px solid ${props => props.theme.mediumGray};
+  }
+  td:last-child {
+    border-right: 0;
+  }
+  td:first-child {
+    border-left: 0;
+    background: ${props => props.theme.mediumGray};
+    border-bottom: 2px solid ${props => props.theme.darkGray};
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    padding: 0;
+    span {
+      font-weight: bold;
+    }
+  }
+`;
+
+const LastDayContent = styled.div`
+  width: 100px;
+  font-size: 27px;
+  color: ${props => props.theme.darkGray};
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  transform: rotate(-90deg);
+  span {
+    display: flex;
+    align-items: center;
+  }
+  svg {
+    transform: rotate(90deg);
+    padding: 0 28px;
+  }
+`;
+
+const DietTypeTableRow = styled.tr`
+  td {
+    text-transform: uppercase;
+    background: ${props => props.theme.mediumGray};
+    text-align: center;
+    border: 2px solid ${props => props.theme.darkGray};
+    padding: 10px 0;
+
+  }
+  td:first-child {
+    border-right: 2px solid ${props => props.theme.mediumGray};
+    border-top: 2px solid ${props => props.theme.mediumGray};
+  }
+  td:last-child {
+    border-bottom: 0;
+    border-radius: 0 0 8px 0;
+    text-transform: none;
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      svg {
+        height: 28px;
+        width: 28px;
+        padding-right: 5px;
+      }
+    }
+  }
+`;
+
+const WorkoutTableRow = styled.tr`
+  td {
+    background: ${props => props.theme.mediumGray};
+    border: 2px solid ${props => props.theme.darkGray};
+    border-bottom: 0;
+    padding: 5px 10px;
+    text-align: center;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        height: 14px;
+        width: 14px;
+      }
+      svg:first-child {
+        height: 24px;
+        width: 24px;
+      }
+      &.active {
+        color: ${props => props.theme.orange};
+      }
+    }
+  }
+  td:first-child {
+    border-bottom: 0;
+    border-radius: 0 0 0 8px;
+    border-right: 2px solid ${props => props.theme.mediumGray};
+    text-transform: none;
+    padding: 10px;
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+`;
+
 export const MealPlan = () => {
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th style={{ border: '1px solid black' }}></th>
-            <th style={{ border: '1px solid black' }}>Day 64</th>
-            <th style={{ border: '1px solid black' }}>Day 65</th>
-            <th style={{ border: '1px solid black' }}>Day 66</th>
-            <th style={{ border: '1px solid black' }}>Day 67</th>
-            <th style={{ border: '1px solid black' }}>Day 68</th>
-            <th style={{ border: '1px solid black' }}>Day 69</th>
-            <th style={{ border: '1px solid black' }}>Day 70</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={{ border: '1px solid black' }}>6 am</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td rowSpan={5} style={{ border: '1px solid black' }}>
-              guilt-free :)
-            </td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid black' }}>9 am</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid black' }}>12 pm</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid black' }}>3 pm</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid black' }}>6 pm</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-            <td style={{ border: '1px solid black' }}>bode shake</td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid black' }}></td>
-            <td style={{ border: '1px solid black' }}>low-carb</td>
-            <td style={{ border: '1px solid black' }}>low-carb</td>
-            <td style={{ border: '1px solid black' }}>low-carb</td>
-            <td style={{ border: '1px solid black' }}>low-carb</td>
-            <td style={{ border: '1px solid black' }}>low-carb</td>
-            <td style={{ border: '1px solid black' }}>low-carb</td>
-            <td rowSpan={2} style={{ border: '1px solid black' }}>
-              print
-            </td>
-          </tr>
-          <tr>
-            <td style={{ border: '1px solid black' }}>workout</td>
-            <td style={{ border: '1px solid black' }}>yes</td>
-            <td style={{ border: '1px solid black' }}>yes</td>
-            <td style={{ border: '1px solid black' }}>yes</td>
-            <td style={{ border: '1px solid black' }}>yes</td>
-            <td style={{ border: '1px solid black' }}>yes</td>
-            <td style={{ border: '1px solid black' }}>yes</td>
-          </tr>
-        </tbody>
-      </table>
-
       <StyledTable>
         <thead>
           <tr>
             <th></th>
             <th>Day 64</th>
-            <th>Day 65</th>
+            <th className="active">Day 65</th>
             <th>Day 66</th>
             <th>Day 67</th>
             <th>Day 68</th>
@@ -175,7 +189,9 @@ export const MealPlan = () => {
         </thead>
         <tbody>
           <tr>
-            <td>6:00 AM</td>
+            <td>
+              <span>6:00 </span>am
+            </td>
             <td>
               <CellContent>
                 <span>
@@ -194,94 +210,340 @@ export const MealPlan = () => {
                 <img src={shakeActive} alt="shake" />
               </CellContent>
             </td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
             <td rowSpan={5}>
+              <LastDayContent>
+                <span>
+                  <BiHappy />
+                  Guilt-free day
+                </span>
+              </LastDayContent>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>9:00 </span>am
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeActive} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>12:00 </span>pm
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeActive} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>3:00 </span>pm
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeActive} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+          </tr>
+          <tr>
+            <td style={{borderBottom: "0px"}}>
+              <span>6:00 </span>pm
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeActive} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+            <td>
+              <CellContent>
+                <span>
+                  Bod•ē Shake
+                  <CheckMarkIcon />
+                </span>
+                <img src={shakeDisabled} alt="shake" />
+              </CellContent>
+            </td>
+          </tr>
+          <DietTypeTableRow>
+            <td></td>
+            <td>low-carb</td>
+            <td>low-carb</td>
+            <td>low-carb</td>
+            <td>low-carb</td>
+            <td>low-carb</td>
+            <td>low-carb</td>
+            <td rowSpan={2}>
               <span>
-                Guilt-free day <BiHappy />
+                <BiPrinter /> Print
               </span>
             </td>
-          </tr>
-          <tr>
-            <td>9:00 AM</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>12:00 PM</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>3:00 PM</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>6:00 PM</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td>Bod•ē Shake</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>Low-Carb</td>
-            <td>Low-Carb</td>
-            <td>Low-Carb</td>
-            <td>Low-Carb</td>
-            <td>Low-Carb</td>
-            <td>Low-Carb</td>
-            <td></td>
-          </tr>
-          <tr>
+          </DietTypeTableRow>
+          <WorkoutTableRow>
             <td>
-              Workout <BiCaretRight />
+              <span>
+                Workout <BiCaretRight />
+              </span>
             </td>
             <td>
-              <BiDumbbell />
-              <BiCheck />
+              <div className="active">
+                <BiDumbbell />
+                <BiCheck />
+              </div>
             </td>
             <td>
-              <BiDumbbell />
-              <BiCheck />
+              <div className="active">
+                <BiDumbbell />
+                <BiCheck />
+              </div>
             </td>
             <td>
-              <BiDumbbell />
+              <div>
+                <BiDumbbell />
+              </div>
             </td>
             <td>
-              <BiDumbbell />
+              <div>
+                <BiDumbbell />
+              </div>
             </td>
             <td>
-              <BiDumbbell />
+              <div>
+                <BiDumbbell />
+              </div>
             </td>
             <td>
-              <BiDumbbell />
+              <div>
+                <BiDumbbell />
+              </div>
             </td>
-            <td>
-              <BiPrinter /> Print
-            </td>
-          </tr>
+          </WorkoutTableRow>
         </tbody>
       </StyledTable>
     </>
