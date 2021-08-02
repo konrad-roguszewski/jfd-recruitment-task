@@ -5,12 +5,15 @@ import { BiHappy } from 'react-icons/bi';
 import { BiCaretRight } from 'react-icons/bi';
 import { BiCheckCircle } from 'react-icons/bi';
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 import shakeActive from '../images/shakeActive.png';
 import shakeDisabled from '../images/shakeDisabled.png';
 
 const CellContent = styled.div`
   display: flex;
   flex-direction: column;
+  height: 75px;
+  width: 90px;
   img {
     height: 60px;
     width: 90px;
@@ -107,7 +110,6 @@ const DietTypeTableRow = styled.tr`
     text-align: center;
     border: 2px solid ${props => props.theme.darkGray};
     padding: 10px 0;
-
   }
   td:first-child {
     border-right: 2px solid ${props => props.theme.mediumGray};
@@ -171,7 +173,240 @@ const WorkoutTableRow = styled.tr`
   }
 `;
 
+interface UserMealPlan {
+  week: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  day: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  mealNumber: 1 | 2 | 3 | 4 | 5;
+  mealName: string;
+  isMealDone: boolean;
+}
+type UserMealsPlan = UserMealPlan[];
+
+const fetchMealsPlan = (): UserMealsPlan => {
+  // Symulacja pobierania danych z API
+  return [
+    {
+      week: 7,
+      day: 1,
+      mealNumber: 1,
+      mealName: 'Bod•ē Shake',
+      isMealDone: true
+    },
+    {
+      week: 7,
+      day: 1,
+      mealNumber: 2,
+      mealName: 'Ham and Swiss Roll Ups',
+      isMealDone: true
+    },
+    {
+      week: 7,
+      day: 1,
+      mealNumber: 3,
+      mealName: 'Turkey Melt',
+      isMealDone: true
+    },
+    {
+      week: 7,
+      day: 1,
+      mealNumber: 4,
+      mealName: 'Bod•ē Burn with Mozzarella and Tomato Slices',
+      isMealDone: true
+    },
+    {
+      week: 7,
+      day: 1,
+      mealNumber: 5,
+      mealName: 'Turkey Melt',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 2,
+      mealNumber: 1,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 2,
+      mealNumber: 2,
+      mealName: 'Ham and Swiss Roll Ups',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 2,
+      mealNumber: 3,
+      mealName: 'Turkey Melt',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 2,
+      mealNumber: 4,
+      mealName: 'Bod•ē Burn with Mozzarella and Tomato Slices',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 2,
+      mealNumber: 5,
+      mealName: 'Turkey Melt',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 3,
+      mealNumber: 1,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 3,
+      mealNumber: 2,
+      mealName: 'Grilled Steak (HC)',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 3,
+      mealNumber: 3,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 3,
+      mealNumber: 4,
+      mealName: 'Bod•ē Burn and Whole-Wheat English Muffin with Butter Spray',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 3,
+      mealNumber: 5,
+      mealName: 'Garlic Lime Chicken (HC)',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 4,
+      mealNumber: 1,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 4,
+      mealNumber: 2,
+      mealName: 'Ham and Swiss Roll Ups',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 4,
+      mealNumber: 3,
+      mealName: 'Turkey Melt',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 4,
+      mealNumber: 4,
+      mealName: 'Bod•ē Burn with Mozzarella and Tomato Slices',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 4,
+      mealNumber: 5,
+      mealName: 'Turkey Melt',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 5,
+      mealNumber: 1,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 5,
+      mealNumber: 2,
+      mealName: 'Ham and Swiss Roll Ups',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 5,
+      mealNumber: 3,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 5,
+      mealNumber: 4,
+      mealName: 'Bod•ē Burn and Whole-Wheat English Muffin with Butter Spray',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 5,
+      mealNumber: 5,
+      mealName: 'Turkey Melt',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 6,
+      mealNumber: 1,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 6,
+      mealNumber: 2,
+      mealName: 'Grilled Steak (HC)',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 6,
+      mealNumber: 3,
+      mealName: 'Bod•ē Shake',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 6,
+      mealNumber: 4,
+      mealName: 'Bod•ē Burn and Whole-Wheat English Muffin with Butter Spray',
+      isMealDone: false
+    },
+    {
+      week: 7,
+      day: 6,
+      mealNumber: 5,
+      mealName: 'Garlic Lime Chicken (HC)',
+      isMealDone: false
+    }
+  ];
+};
+
 export const MealPlan = () => {
+  const [data, setData] = useState<UserMealPlan[]>([]);
+
+  useEffect(() => loadData(), []);
+
+  const loadData = () => {
+    setData(fetchMealsPlan);
+  };
+
   return (
     <>
       <StyledTable>
@@ -192,60 +427,23 @@ export const MealPlan = () => {
             <td>
               <span>6:00 </span>am
             </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeActive} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
+            {data
+              .filter(meal => meal.mealNumber === 1)
+              .map(meal => (
+                <td>
+                  <CellContent>
+                    <span>
+                      {meal.mealName}
+                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
+                    </span>
+                    {meal.mealName === 'Bod•ē Shake' ? (
+                      <img src={shakeDisabled} alt="shake" />
+                    ) : (
+                      ''
+                    )}
+                  </CellContent>
+                </td>
+              ))}
             <td rowSpan={5}>
               <LastDayContent>
                 <span>
@@ -259,237 +457,89 @@ export const MealPlan = () => {
             <td>
               <span>9:00 </span>am
             </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeActive} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
+            {data
+              .filter(meal => meal.mealNumber === 2)
+              .map(meal => (
+                <td>
+                  <CellContent>
+                    <span>
+                      {meal.mealName}
+                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
+                    </span>
+                    {meal.mealName === 'Bod•ē Shake' ? (
+                      <img src={shakeDisabled} alt="shake" />
+                    ) : (
+                      ''
+                    )}
+                  </CellContent>
+                </td>
+              ))}
           </tr>
           <tr>
             <td>
               <span>12:00 </span>pm
             </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeActive} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
+            {data
+              .filter(meal => meal.mealNumber === 3)
+              .map(meal => (
+                <td>
+                  <CellContent>
+                    <span>
+                      {meal.mealName}
+                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
+                    </span>
+                    {meal.mealName === 'Bod•ē Shake' ? (
+                      <img src={shakeDisabled} alt="shake" />
+                    ) : (
+                      ''
+                    )}
+                  </CellContent>
+                </td>
+              ))}
           </tr>
           <tr>
             <td>
               <span>3:00 </span>pm
             </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeActive} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
+            {data
+              .filter(meal => meal.mealNumber === 4)
+              .map(meal => (
+                <td>
+                  <CellContent>
+                    <span>
+                      {meal.mealName}
+                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
+                    </span>
+                    {meal.mealName === 'Bod•ē Shake' ? (
+                      <img src={shakeDisabled} alt="shake" />
+                    ) : (
+                      ''
+                    )}
+                  </CellContent>
+                </td>
+              ))}
           </tr>
           <tr>
-            <td style={{borderBottom: "0px"}}>
+            <td style={{ borderBottom: '0px' }}>
               <span>6:00 </span>pm
             </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeActive} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
-            <td>
-              <CellContent>
-                <span>
-                  Bod•ē Shake
-                  <CheckMarkIcon />
-                </span>
-                <img src={shakeDisabled} alt="shake" />
-              </CellContent>
-            </td>
+            {data
+              .filter(meal => meal.mealNumber === 5)
+              .map(meal => (
+                <td>
+                  <CellContent>
+                    <span>
+                      {meal.mealName}
+                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
+                    </span>
+                    {meal.mealName === 'Bod•ē Shake' ? (
+                      <img src={shakeDisabled} alt="shake" />
+                    ) : (
+                      ''
+                    )}
+                  </CellContent>
+                </td>
+              ))}
           </tr>
           <DietTypeTableRow>
             <td></td>
