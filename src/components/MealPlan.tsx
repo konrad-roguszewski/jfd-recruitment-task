@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import shakeActive from '../images/shakeActive.png';
 import shakeDisabled from '../images/shakeDisabled.png';
+import { fetchMealsPlan } from '../data/fetchMealsPlan';
 
 const CellContent = styled.div`
   display: flex;
@@ -194,223 +195,6 @@ interface UserMealPlan {
   mealName: string;
   isMealDone: boolean;
 }
-type UserMealsPlan = UserMealPlan[];
-
-const fetchMealsPlan = (): UserMealsPlan => {
-  // Symulacja pobierania danych z API
-  return [
-    {
-      week: 7,
-      day: 1,
-      mealNumber: 1,
-      mealName: 'Bod•ē Shake',
-      isMealDone: true
-    },
-    {
-      week: 7,
-      day: 1,
-      mealNumber: 2,
-      mealName: 'Ham and Swiss Roll Ups',
-      isMealDone: true
-    },
-    {
-      week: 7,
-      day: 1,
-      mealNumber: 3,
-      mealName: 'Turkey Melt',
-      isMealDone: true
-    },
-    {
-      week: 7,
-      day: 1,
-      mealNumber: 4,
-      mealName: 'Bod•ē Burn with Mozzarella and Tomato Slices',
-      isMealDone: true
-    },
-    {
-      week: 7,
-      day: 1,
-      mealNumber: 5,
-      mealName: 'Turkey Melt',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 2,
-      mealNumber: 1,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 2,
-      mealNumber: 2,
-      mealName: 'Ham and Swiss Roll Ups',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 2,
-      mealNumber: 3,
-      mealName: 'Turkey Melt',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 2,
-      mealNumber: 4,
-      mealName: 'Bod•ē Burn with Mozzarella and Tomato Slices',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 2,
-      mealNumber: 5,
-      mealName: 'Turkey Melt',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 3,
-      mealNumber: 1,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 3,
-      mealNumber: 2,
-      mealName: 'Grilled Steak (HC)',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 3,
-      mealNumber: 3,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 3,
-      mealNumber: 4,
-      mealName: 'Bod•ē Burn and Whole-Wheat English Muffin with Butter Spray',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 3,
-      mealNumber: 5,
-      mealName: 'Garlic Lime Chicken (HC)',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 4,
-      mealNumber: 1,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 4,
-      mealNumber: 2,
-      mealName: 'Ham and Swiss Roll Ups',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 4,
-      mealNumber: 3,
-      mealName: 'Turkey Melt',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 4,
-      mealNumber: 4,
-      mealName: 'Bod•ē Burn with Mozzarella and Tomato Slices',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 4,
-      mealNumber: 5,
-      mealName: 'Turkey Melt',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 5,
-      mealNumber: 1,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 5,
-      mealNumber: 2,
-      mealName: 'Ham and Swiss Roll Ups',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 5,
-      mealNumber: 3,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 5,
-      mealNumber: 4,
-      mealName: 'Bod•ē Burn and Whole-Wheat English Muffin with Butter Spray',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 5,
-      mealNumber: 5,
-      mealName: 'Turkey Melt',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 6,
-      mealNumber: 1,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 6,
-      mealNumber: 2,
-      mealName: 'Grilled Steak (HC)',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 6,
-      mealNumber: 3,
-      mealName: 'Bod•ē Shake',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 6,
-      mealNumber: 4,
-      mealName: 'Bod•ē Burn and Whole-Wheat English Muffin with Butter Spray',
-      isMealDone: false
-    },
-    {
-      week: 7,
-      day: 6,
-      mealNumber: 5,
-      mealName: 'Garlic Lime Chicken (HC)',
-      isMealDone: false
-    }
-  ];
-};
 
 export const MealPlan = () => {
   const [data, setData] = useState<UserMealPlan[]>([]);
@@ -443,8 +227,8 @@ export const MealPlan = () => {
             </td>
             {data
               .filter(meal => meal.mealNumber === 1)
-              .map(meal => (
-                <td>
+              .map((meal, key) => (
+                <td key={key}>
                   <CellContent>
                     <span>
                       {meal.mealName}
@@ -473,8 +257,8 @@ export const MealPlan = () => {
             </td>
             {data
               .filter(meal => meal.mealNumber === 2)
-              .map(meal => (
-                <td>
+              .map((meal, key) => (
+                <td key={key}>
                   <CellContent>
                     <span>
                       {meal.mealName}
@@ -495,8 +279,8 @@ export const MealPlan = () => {
             </td>
             {data
               .filter(meal => meal.mealNumber === 3)
-              .map(meal => (
-                <td>
+              .map((meal, key) => (
+                <td key={key}>
                   <CellContent>
                     <span>
                       {meal.mealName}
@@ -517,8 +301,8 @@ export const MealPlan = () => {
             </td>
             {data
               .filter(meal => meal.mealNumber === 4)
-              .map(meal => (
-                <td>
+              .map((meal, key) => (
+                <td key={key}>
                   <CellContent>
                     <span>
                       {meal.mealName}
@@ -539,8 +323,8 @@ export const MealPlan = () => {
             </td>
             {data
               .filter(meal => meal.mealNumber === 5)
-              .map(meal => (
-                <td>
+              .map((meal, key) => (
+                <td key={key}>
                   <CellContent>
                     <span>
                       {meal.mealName}
@@ -559,10 +343,10 @@ export const MealPlan = () => {
             <td></td>
             <td>low-carb</td>
             <td>low-carb</td>
+            <td>high-carb</td>
             <td>low-carb</td>
             <td>low-carb</td>
-            <td>low-carb</td>
-            <td>low-carb</td>
+            <td>high-carb</td>
             <td rowSpan={2}>
               <span>
                 <BiPrinter /> Print
