@@ -12,11 +12,25 @@ import shakeDisabled from '../images/shakeDisabled.png';
 const CellContent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 75px;
-  width: 90px;
+  justify-content: space-between;
+  height: 80px;
+  width: 95px;
+  position: relative;
   img {
     height: 60px;
     width: 90px;
+    margin: 0 auto;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    white-space: initial;
+    line-height: 1.6;
+    svg {
+      position: absolute;
+      left: 90px;
+      top: -5px;
+    }
   }
 `;
 
@@ -85,7 +99,7 @@ const StyledTable = styled.table`
 `;
 
 const LastDayContent = styled.div`
-  width: 100px;
+  width: 95px;
   font-size: 27px;
   color: ${props => props.theme.darkGray};
   text-transform: uppercase;
