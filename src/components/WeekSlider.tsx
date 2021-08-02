@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { AiOutlineRight } from 'react-icons/ai';
+import { weeks } from '../data/weeks';
 
 const Root = styled.div`
   display: flex;
@@ -17,6 +18,20 @@ const StyledButton = styled.button`
   padding: 0 2px;
   font-size: 18px;
   height: 42px;
+  &:disabled {
+    color: ${props => props.theme.lightGray};
+    border: 1px solid ${props => props.theme.lightGray};
+  }
+  &:hover {
+    color: ${props => props.theme.lightGray};
+    border: 1px solid ${props => props.theme.graphite};
+    background: ${props => props.theme.graphite};
+    &:disabled {
+      color: ${props => props.theme.lightGray};
+      background: ${props => props.theme.lightGray};
+      border: 1px solid ${props => props.theme.lightGray};
+    }
+  }
 `;
 
 const StyledParagraph = styled.p`
@@ -26,14 +41,33 @@ const StyledParagraph = styled.p`
   text-align: center;
 `;
 
-export const WeekSlider = () => {
+interface ControlPanelProps {
+  currentWeek: number;
+  setCurrentWeek: any;
+}
+
+export const WeekSlider = ({
+  currentWeek,
+  setCurrentWeek
+}: ControlPanelProps) => {
+  function goToNextWeek() {
+    setCurrentWeek(sequence => sequence + 1);
+  }
+
+  function goToPreviousWeek() {
+    setCurrentWeek(sequence => sequence - 1);
+  }
+
   return (
     <Root>
-      <StyledButton>
+      <StyledButton onClick={goToPreviousWeek} disabled={currentWeek === 1}>
         <AiOutlineLeft />
       </StyledButton>
-      <StyledParagraph>Week 7</StyledParagraph>
-      <StyledButton>
+      <StyledParagraph>{weeks[currentWeek - 1].name}</StyledParagraph>
+      <StyledButton
+        onClick={goToNextWeek}
+        disabled={currentWeek === 12 && true}
+      >
         <AiOutlineRight />
       </StyledButton>
     </Root>

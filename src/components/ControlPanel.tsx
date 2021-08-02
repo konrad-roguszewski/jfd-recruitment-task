@@ -1,7 +1,7 @@
-import { WeekProgress } from "./WeekProgress";
-import { WeekSlider } from "./WeekSlider";
-import { ProteinOptions } from "./ProteinOptions";
-import styled from "styled-components";
+import { WeekProgress } from './WeekProgress';
+import { WeekSlider } from './WeekSlider';
+import { ProteinOptions } from './ProteinOptions';
+import styled from 'styled-components';
 
 const Root = styled.div`
   height: 110px;
@@ -10,12 +10,20 @@ const Root = styled.div`
   align-items: center;
 `;
 
-export const ControlPanel = () => {
+interface ControlPanelProps {
+  currentWeek: number;
+  setCurrentWeek: any;
+}
+
+export const ControlPanel = ({
+  currentWeek,
+  setCurrentWeek
+}: ControlPanelProps) => {
   return (
     <Root>
       <WeekProgress />
-      <WeekSlider />
+      <WeekSlider currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
       <ProteinOptions />
     </Root>
-  )
-}
+  );
+};

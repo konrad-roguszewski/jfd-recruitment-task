@@ -1,6 +1,7 @@
-import { ControlPanel } from "../components/ControlPanel";
-import { MealPlan } from "../components/MealPlan";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { ControlPanel } from '../components/ControlPanel';
+import { MealPlan } from '../components/MealPlan';
 
 const Root = styled.div`
   height: 688px;
@@ -13,9 +14,11 @@ const Root = styled.div`
 `;
 
 export const Dashboard = () => {
+  const [currentWeek, setCurrentWeek] = useState(7);
+
   return (
     <Root>
-      <ControlPanel />
+      <ControlPanel currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
       <MealPlan />
     </Root>
   );
