@@ -44,19 +44,19 @@ const StyledParagraph = styled.p`
 interface ControlPanelProps {
   currentWeek: number;
   setCurrentWeek: any;
-}
+};
 
 export const WeekSlider = ({
   currentWeek,
   setCurrentWeek
 }: ControlPanelProps) => {
   function goToNextWeek() {
-    setCurrentWeek(sequence => sequence + 1);
-  }
+    setCurrentWeek((sequence: number) => sequence + 1);
+  };
 
   function goToPreviousWeek() {
-    setCurrentWeek(sequence => sequence - 1);
-  }
+    setCurrentWeek((sequence: number) => sequence - 1);
+  };
 
   return (
     <Root>
