@@ -1,6 +1,6 @@
-import { Navigation } from "./Navigation";
-import { Profile } from "./Profile";
-import styled from "styled-components";
+import { Navigation } from './Navigation';
+import { Profile } from './Profile';
+import styled from 'styled-components';
 
 const Root = styled.div`
   background: ${props => props.theme.white};
@@ -16,6 +16,10 @@ const StyledHeader = styled.header`
   padding: 0 2%;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 480px) {
+    width: 94%;
+    padding: 0 3%;
+  }
 `;
 
 export const Header = () => {

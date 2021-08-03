@@ -17,6 +17,10 @@ const Root = styled.div`
     height: auto;
     margin-top: 16px;
   }
+  @media screen and (max-width: 480px) {
+    width: 94%;
+    padding: 0 3%;
+  }
 `;
 
 const StyledHeading = styled.h3`

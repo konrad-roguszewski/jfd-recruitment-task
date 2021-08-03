@@ -17,12 +17,18 @@ const StyledLink = styled.a`
   text-decoration: none;
   color: ${props => props.theme.graphite};
   margin: 5px;
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const StyledIcon = styled(AiOutlineDown)`
   color: ${props => props.theme.graphite};
   height: 12px;
   width: 12px;
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 `;
 
 export const Profile = () => {

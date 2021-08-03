@@ -1,10 +1,24 @@
 import styled from 'styled-components';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 const StyledNav = styled.nav`
   margin-left: 120px;
   border-left: 1px solid ${props => props.theme.mediumGray};
   height: 80px;
   display: flex;
+  svg {
+    display: none;
+  }
+  @media screen and (max-width: 480px) {
+    margin-left: 0;
+    border-left: 0;
+    align-items: center;
+    svg {
+      display: block;
+      height: 24px;
+      width: 24px;
+    }
+  }
 `;
 
 const StyledList = styled.ul`
@@ -25,7 +39,9 @@ const StyledLink = styled.a`
   color: ${props => props.theme.graphite};
   text-transform: uppercase;
   font-weight: bold;
-
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
   &.active {
     color: ${props => props.theme.orange};
     position: relative;
@@ -39,12 +55,26 @@ const StyledLink = styled.a`
       width: 25%;
       border-bottom: 2px solid ${props => props.theme.orange};
     }
+    @media screen and (max-width: 480px) {
+      display: block;
+      color: ${props => props.theme.graphite};
+      &:before {
+        content: '';
+        position: absolute;
+        left: 37%;
+        bottom: -10px;
+        height: 0;
+        width: 25%;
+        border-bottom: 2px solid ${props => props.theme.white};
+      }
+    }
   }
 `;
 
 export const Navigation = () => {
   return (
     <StyledNav>
+      <AiOutlineMenu />
       <StyledList>
         <StyledListItem>
           <StyledLink href="dashboard" className="active">
