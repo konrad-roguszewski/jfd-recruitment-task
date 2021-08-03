@@ -1,5 +1,6 @@
 import { AiOutlineDown } from "react-icons/ai";
 import styled from 'styled-components';
+import { userProfile } from "../data/userProfile";
 
 const Root = styled.div`
   display: flex;
@@ -34,8 +35,8 @@ const StyledIcon = styled(AiOutlineDown)`
 export const Profile = () => {
   return (
     <Root>
-      <StyledImage src="https://picsum.photos/id/1027/36/36" alt="avatar" />
-      <StyledLink href="profile">Olivia Wilde</StyledLink>
+      <StyledImage src={userProfile.avatarSrc} alt="avatar" />
+      <StyledLink href="profile">{userProfile.userName}</StyledLink>
       <StyledIcon />
     </Root>
   );
