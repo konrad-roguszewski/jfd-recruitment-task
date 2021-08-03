@@ -11,7 +11,11 @@ const StyledTitle = styled.p`
   text-transform: uppercase;
   font-size: 10px;
   color: ${props => props.theme.graphite};
-  margin-left: 10px;
+  margin-left: 0px;
+  @media screen and (max-width: 768px) {
+    text-align: center;
+    margin-top: 36px;
+  }
 `;
 
 const StyledParagraph = styled.p`
@@ -33,6 +37,9 @@ const ProgressSection = styled.div`
   position: relative;
   z-index: 1;
   width: 12px;
+  &:first-child {
+    margin-left: 0px;
+  }
   &:before {
     content: '';
     position: absolute;
@@ -85,23 +92,23 @@ export const WeekProgress = () => {
           <StyledParagraph>1</StyledParagraph>
         </ProgressSection>
         <ProgressSection className="active">
-          <PlainCircleIcon className="active"/>
+          <PlainCircleIcon className="active" />
           <StyledParagraph>2</StyledParagraph>
         </ProgressSection>
         <ProgressSection className="active">
-          <PlainCircleIcon className="active"/>
+          <PlainCircleIcon className="active" />
           <StyledParagraph>3</StyledParagraph>
         </ProgressSection>
         <ProgressSection className="active">
-          <PlainCircleIcon className="active"/>
+          <PlainCircleIcon className="active" />
           <StyledParagraph>4</StyledParagraph>
         </ProgressSection>
         <ProgressSection className="active">
-          <PlainCircleIcon className="active"/>
+          <PlainCircleIcon className="active" />
           <StyledParagraph>5</StyledParagraph>
         </ProgressSection>
         <ProgressSection>
-          <PlainCircleIcon className="active"/>
+          <PlainCircleIcon className="active" />
           <StyledParagraph>6</StyledParagraph>
         </ProgressSection>
         <ProgressSection>

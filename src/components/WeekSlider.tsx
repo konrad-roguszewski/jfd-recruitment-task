@@ -39,6 +39,9 @@ const StyledParagraph = styled.p`
   color: ${props => props.theme.orange};
   width: 250px;
   text-align: center;
+  @media screen and (max-width: 768px) {
+    margin-top: 26px;
+  }
 `;
 
 interface ControlPanelProps {

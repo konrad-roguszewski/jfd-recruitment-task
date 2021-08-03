@@ -188,6 +188,12 @@ const WorkoutTableRow = styled.tr`
   }
 `;
 
+const Root = styled.div`
+  @media screen and (max-width: 768px) {
+    overflow-x: auto;
+  }
+`;
+
 interface UserMealPlan {
   week: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   day: 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -206,7 +212,7 @@ export const MealPlan = () => {
   };
 
   return (
-    <>
+    <Root>
       <StyledTable>
         <thead>
           <tr>
@@ -394,6 +400,6 @@ export const MealPlan = () => {
           </WorkoutTableRow>
         </tbody>
       </StyledTable>
-    </>
+    </Root>
   );
 };

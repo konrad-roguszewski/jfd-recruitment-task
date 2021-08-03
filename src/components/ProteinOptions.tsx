@@ -10,11 +10,17 @@ const StyledParagraph = styled.p`
   font-size: 10px;
   color: ${props => props.theme.graphite};
   margin-top: 0;
+  @media screen and (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 const IconsGroup = styled.div`
   display: flex;
   color: ${props => props.theme.darkGray};
+  @media screen and (max-width: 768px) {
+    margin-bottom: 36px;
+  }
 `;
 
 const StyledBroccoliIcon = styled(GiBroccoli)`
@@ -66,9 +72,9 @@ export const ProteinOptions = () => {
     <div>
       <StyledParagraph>Select your protein options</StyledParagraph>
       <IconsGroup>
-        <StyledBroccoliIcon className="active"/>
-        <StyledCheeseIcon className="active"/>
-        <StyledSteakIcon className="active"/>
+        <StyledBroccoliIcon className="active" />
+        <StyledCheeseIcon className="active" />
+        <StyledSteakIcon className="active" />
         <StyledFishIcon />
         <StyledChickenIcon />
       </IconsGroup>

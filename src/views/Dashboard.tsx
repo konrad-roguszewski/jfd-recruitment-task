@@ -11,6 +11,9 @@ const Root = styled.div`
   width: 96%;
   max-width: 1024px;
   padding: 0 2%;
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export const Dashboard = () => {

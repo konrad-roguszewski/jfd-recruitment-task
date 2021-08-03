@@ -12,6 +12,11 @@ const Root = styled.div`
   width: 96%;
   max-width: 1024px;
   padding: 0 2%;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    margin-top: 16px;
+  }
 `;
 
 const StyledHeading = styled.h3`
@@ -19,6 +24,9 @@ const StyledHeading = styled.h3`
   font-size: 24px;
   width: 220px;
   margin: 16px 0;
+  @media screen and (max-width: 768px) {
+    width: auto;
+  }
 `;
 
 const StyledParagraph = styled.p`
@@ -37,11 +45,21 @@ const StyledButton = styled.button`
   font-size: 18px;
   margin-right: 10px;
   height: 36px;
+  &:hover {
+    color: ${props => props.theme.lightGray};
+    border: 1px solid ${props => props.theme.graphite};
+    background: ${props => props.theme.graphite};
+  }
 `;
 
-const InfoPanel = styled.div``;
+const LastInfoPanel = styled.div`
+  margin-right: 50px;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 16px;
+  }
+`;
 
-const CenterInfoPanel = styled.div`
+const InfoPanel = styled.div`
   margin-right: 50px;
   position: relative;
   z-index: 1;
@@ -53,6 +71,24 @@ const CenterInfoPanel = styled.div`
     height: 90%;
     width: 100%;
     border-right: 1px solid ${props => props.theme.darkGray};
+    @media screen and (max-width: 768px) {
+      border-right: 1px solid ${props => props.theme.lightGray};
+    }
+  }
+  @media screen and (max-width: 768px) {
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: 30%;
+      bottom: 0%;
+      height: 100%;
+      width: 70%;
+      border-bottom: 1px solid ${props => props.theme.darkGray};
+    }
   }
 `;
 
@@ -77,7 +113,7 @@ const StyledAndroidIcon = styled(AiFillAndroid)`
 export const Footer = () => {
   return (
     <Root>
-      <CenterInfoPanel>
+      <InfoPanel>
         <StyledHeading>Running out of products?</StyledHeading>
         <StyledParagraph>
           Lorem ipsum dolor sit amet, consect turadipiscing elit. Integer
@@ -87,8 +123,8 @@ export const Footer = () => {
           <StyledSpan>Buy now</StyledSpan>
           <AiOutlineRight />
         </StyledButton>
-      </CenterInfoPanel>
-      <CenterInfoPanel>
+      </InfoPanel>
+      <InfoPanel>
         <StyledHeading>Bod•ē Trainer in your pocket</StyledHeading>
         <StyledParagraph>
           Lorem ipsum dolor sit amet, consect turadipiscing elit. Integer
@@ -106,8 +142,8 @@ export const Footer = () => {
             <AiOutlineRight />
           </StyledButton>
         </BtnGroup>
-      </CenterInfoPanel>
-      <InfoPanel>
+      </InfoPanel>
+      <LastInfoPanel>
         <StyledHeading>Frequently Asked Questions</StyledHeading>
         <StyledParagraph>
           Lorem ipsum dolor sit amet, consect turadipiscing elit. Integer
@@ -117,7 +153,7 @@ export const Footer = () => {
           <StyledSpan>Read FAQs</StyledSpan>
           <AiOutlineRight />
         </StyledButton>
-      </InfoPanel>
+      </LastInfoPanel>
     </Root>
   );
 };
