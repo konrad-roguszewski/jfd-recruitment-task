@@ -9,6 +9,9 @@ const StyledNav = styled.nav`
   svg {
     display: none;
   }
+  ul.dropdown {
+    display: none;
+  }
   @media screen and (max-width: 480px) {
     margin-left: 0;
     border-left: 0;
@@ -17,6 +20,58 @@ const StyledNav = styled.nav`
       display: block;
       height: 24px;
       width: 24px;
+    }
+    ul.dropdown {
+      display: none;
+    }
+    &:hover {
+      ul.dropdown {
+        visibility: visible;
+        position: absolute;
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        bottom: 0;
+        top: 80px;
+        left: 0;
+        z-index: 2;
+        animation: growDown 300ms ease-in-out forwards;
+        transform-origin: top center;
+        @keyframes growDown {
+          0% {
+            transform: scaleY(0);
+          }
+          80% {
+            transform: scaleY(1.1);
+          }
+          100% {
+            transform: scaleY(1);
+          }
+        }
+        a {
+          text-decoration: none;
+          color: ${props => props.theme.graphite};
+          text-transform: uppercase;
+          font-weight: bold;
+          &.active {
+            color: ${props => props.theme.orange};
+          }
+        }
+        li {
+          background: ${props => props.theme.white};
+          padding: 1rem;
+          position: relative;
+          text-decoration: none;
+          transition-duration: 0.5s;
+          transition: all 1.5s ease;
+          border-top: 2px solid ${props => props.theme.mediumGray};
+          &:hover {
+            background: ${props => props.theme.mediumGray};
+          }
+        }
+      }
     }
   }
 `;
@@ -75,6 +130,19 @@ export const Navigation = () => {
   return (
     <StyledNav>
       <AiOutlineMenu />
+      <ul className="dropdown" aria-label="submenu">
+        <li>
+          <a href="dashboard" className="active">
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="recipes">Recipes</a>
+        </li>
+        <li>
+          <a href="challenge">Challenge</a>
+        </li>
+      </ul>
       <StyledList>
         <StyledListItem>
           <StyledLink href="dashboard" className="active">
