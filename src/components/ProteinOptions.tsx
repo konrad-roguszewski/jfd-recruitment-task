@@ -13,6 +13,9 @@ const StyledParagraph = styled.p`
   @media screen and (max-width: 768px) {
     text-align: center;
   }
+  @media screen and (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const IconsGroup = styled.div`

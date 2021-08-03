@@ -16,6 +16,9 @@ const StyledTitle = styled.p`
     text-align: center;
     margin-top: 36px;
   }
+  @media screen and (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const StyledParagraph = styled.p`

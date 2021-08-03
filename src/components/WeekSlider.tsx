@@ -42,6 +42,10 @@ const StyledParagraph = styled.p`
   @media screen and (max-width: 768px) {
     margin-top: 26px;
   }
+  @media screen and (max-width: 480px) {
+    margin-top: 16px;
+    margin-bottom: 26px;
+  }
 `;
 
 interface ControlPanelProps {
