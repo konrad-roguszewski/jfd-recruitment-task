@@ -26,7 +26,7 @@ export const Dashboard = () => {
   return (
     <Root>
       <ControlPanel currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
-      <MealPlan />
+      <MealPlan currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
     </Root>
   );
 };

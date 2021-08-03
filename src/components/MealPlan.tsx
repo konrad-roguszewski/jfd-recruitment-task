@@ -14,7 +14,7 @@ const CellContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 80px;
+  height: 78px;
   width: 95px;
   position: relative;
   img {
@@ -27,6 +27,9 @@ const CellContent = styled.div`
     align-items: center;
     white-space: initial;
     line-height: 1.6;
+    &.currentDay {
+      color: ${props => props.theme.black};
+    }
     svg {
       position: absolute;
       left: 90px;
@@ -45,10 +48,10 @@ const StyledTable = styled.table`
   border-collapse: collapse;
   min-width: 100%;
   border-radius: 8px;
-  background: ${props => props.theme.white};
   color: ${props => props.theme.graphite};
   th,
   td {
+    background: ${props => props.theme.white};
     padding: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -60,27 +63,44 @@ const StyledTable = styled.table`
     font-weight: bold;
     border: 2px solid ${props => props.theme.mediumGray};
     border-top: 0;
+    border-bottom: 0;
     text-transform: uppercase;
     color: ${props => props.theme.green};
     font-size: 18px;
     text-align: center;
-    &.active {
+    &.currentDay {
       color: ${props => props.theme.orange};
+      border-color: ${props => props.theme.orange};
+      border-width: 0 2px;
+      border-top: 2px solid;
     }
   }
   th:last-child,
   th:first-child {
     border: 0;
+    & + th {
+      border-right: 0;
+      border-bottom: 0;
+    }
   }
   th:first-child {
     background: ${props => props.theme.mediumGray};
     border-radius: 8px 0 0 0;
+  }
+  th:last-child {
+    border-radius: 0 8px 0 0;
   }
   td {
     padding-top: 10px;
     padding-bottom: 0px;
     font-size: 12px;
     border: 2px solid ${props => props.theme.mediumGray};
+    &.currentDay {
+      border-color: ${props => props.theme.orange};
+      border-width: 0 2px;
+      border-top: 2px solid ${props => props.theme.mediumGray};
+      border-right: 2px solid ${props => props.theme.orange};
+    }
   }
   td:last-child {
     border-right: 0;
@@ -95,6 +115,10 @@ const StyledTable = styled.table`
     padding: 0;
     span {
       font-weight: bold;
+    }
+    & + td {
+      border-right: 0;
+      border-bottom: 0;
     }
   }
 `;
@@ -124,7 +148,12 @@ const DietTypeTableRow = styled.tr`
     background: ${props => props.theme.mediumGray};
     text-align: center;
     border: 2px solid ${props => props.theme.darkGray};
+    border-top: 2px solid ${props => props.theme.mediumGray};
     padding: 10px 0;
+    border-right: 0;
+    &.currentDay {
+      border-top: 2px solid ${props => props.theme.mediumGray};
+    }
   }
   td:first-child {
     border-right: 2px solid ${props => props.theme.mediumGray};
@@ -155,6 +184,11 @@ const WorkoutTableRow = styled.tr`
     border-bottom: 0;
     padding: 5px 10px;
     text-align: center;
+    border-right: 0;
+    &.currentDay {
+      border-bottom: 2px solid ${props => props.theme.orange};
+      border-top: 2px solid ${props => props.theme.darkGray};
+    }
     div {
       display: flex;
       justify-content: center;
@@ -202,8 +236,18 @@ interface UserMealPlan {
   isMealDone: boolean;
 }
 
-export const MealPlan = () => {
+interface ControlPanelProps {
+  currentWeek: number;
+  setCurrentWeek: any;
+}
+
+export const MealPlan = ({
+  currentWeek,
+  setCurrentWeek
+}: ControlPanelProps) => {
   const [data, setData] = useState<UserMealPlan[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [currentDay, setCurrentDay] = useState(2);
 
   useEffect(() => loadData(), []);
 
@@ -218,7 +262,7 @@ export const MealPlan = () => {
           <tr>
             <th></th>
             <th>Day 64</th>
-            <th className="active">Day 65</th>
+            <th className="currentDay">Day 65</th>
             <th>Day 66</th>
             <th>Day 67</th>
             <th>Day 68</th>
@@ -234,14 +278,24 @@ export const MealPlan = () => {
             {data
               .filter(meal => meal.mealNumber === 1)
               .map((meal, key) => (
-                <td key={key}>
+                <td
+                  key={key}
+                  className={meal.day === currentDay ? 'currentDay' : ''}
+                >
                   <CellContent>
-                    <span>
+                    <span
+                      className={meal.day === currentDay ? 'currentDay' : ''}
+                    >
                       {meal.mealName}
                       {meal.isMealDone ? <CheckMarkIcon /> : ''}
                     </span>
                     {meal.mealName === 'Bod•ē Shake' ? (
-                      <img src={shakeDisabled} alt="shake" />
+                      <img
+                        src={
+                          meal.day === currentDay ? shakeActive : shakeDisabled
+                        }
+                        alt="shake"
+                      />
                     ) : (
                       ''
                     )}
@@ -264,14 +318,24 @@ export const MealPlan = () => {
             {data
               .filter(meal => meal.mealNumber === 2)
               .map((meal, key) => (
-                <td key={key}>
+                <td
+                  key={key}
+                  className={meal.day === currentDay ? 'currentDay' : ''}
+                >
                   <CellContent>
-                    <span>
+                    <span
+                      className={meal.day === currentDay ? 'currentDay' : ''}
+                    >
                       {meal.mealName}
                       {meal.isMealDone ? <CheckMarkIcon /> : ''}
                     </span>
                     {meal.mealName === 'Bod•ē Shake' ? (
-                      <img src={shakeDisabled} alt="shake" />
+                      <img
+                        src={
+                          meal.day === currentDay ? shakeActive : shakeDisabled
+                        }
+                        alt="shake"
+                      />
                     ) : (
                       ''
                     )}
@@ -286,14 +350,24 @@ export const MealPlan = () => {
             {data
               .filter(meal => meal.mealNumber === 3)
               .map((meal, key) => (
-                <td key={key}>
+                <td
+                  key={key}
+                  className={meal.day === currentDay ? 'currentDay' : ''}
+                >
                   <CellContent>
-                    <span>
+                    <span
+                      className={meal.day === currentDay ? 'currentDay' : ''}
+                    >
                       {meal.mealName}
                       {meal.isMealDone ? <CheckMarkIcon /> : ''}
                     </span>
                     {meal.mealName === 'Bod•ē Shake' ? (
-                      <img src={shakeDisabled} alt="shake" />
+                      <img
+                        src={
+                          meal.day === currentDay ? shakeActive : shakeDisabled
+                        }
+                        alt="shake"
+                      />
                     ) : (
                       ''
                     )}
@@ -308,14 +382,24 @@ export const MealPlan = () => {
             {data
               .filter(meal => meal.mealNumber === 4)
               .map((meal, key) => (
-                <td key={key}>
+                <td
+                  key={key}
+                  className={meal.day === currentDay ? 'currentDay' : ''}
+                >
                   <CellContent>
-                    <span>
+                    <span
+                      className={meal.day === currentDay ? 'currentDay' : ''}
+                    >
                       {meal.mealName}
                       {meal.isMealDone ? <CheckMarkIcon /> : ''}
                     </span>
                     {meal.mealName === 'Bod•ē Shake' ? (
-                      <img src={shakeDisabled} alt="shake" />
+                      <img
+                        src={
+                          meal.day === currentDay ? shakeActive : shakeDisabled
+                        }
+                        alt="shake"
+                      />
                     ) : (
                       ''
                     )}
@@ -330,14 +414,24 @@ export const MealPlan = () => {
             {data
               .filter(meal => meal.mealNumber === 5)
               .map((meal, key) => (
-                <td key={key}>
+                <td
+                  key={key}
+                  className={meal.day === currentDay ? 'currentDay' : ''}
+                >
                   <CellContent>
-                    <span>
+                    <span
+                      className={meal.day === currentDay ? 'currentDay' : ''}
+                    >
                       {meal.mealName}
                       {meal.isMealDone ? <CheckMarkIcon /> : ''}
                     </span>
                     {meal.mealName === 'Bod•ē Shake' ? (
-                      <img src={shakeDisabled} alt="shake" />
+                      <img
+                        src={
+                          meal.day === currentDay ? shakeActive : shakeDisabled
+                        }
+                        alt="shake"
+                      />
                     ) : (
                       ''
                     )}
@@ -348,7 +442,7 @@ export const MealPlan = () => {
           <DietTypeTableRow>
             <td></td>
             <td>low-carb</td>
-            <td>low-carb</td>
+            <td className="currentDay">low-carb</td>
             <td>high-carb</td>
             <td>low-carb</td>
             <td>low-carb</td>
@@ -371,7 +465,7 @@ export const MealPlan = () => {
                 <BiCheck />
               </div>
             </td>
-            <td>
+            <td className="currentDay">
               <div className="active">
                 <BiDumbbell />
                 <BiCheck />
