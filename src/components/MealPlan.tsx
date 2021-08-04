@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import shakeActive from '../images/shakeActive.png';
 import shakeDisabled from '../images/shakeDisabled.png';
 import { fetchMealsPlan } from '../data/fetchMealsPlan';
+import { userSchedule } from '../data/userSchedule';
 
 const CellContent = styled.div`
   display: flex;
@@ -237,13 +238,13 @@ interface UserMealPlan {
 }
 
 interface ControlPanelProps {
-  currentWeek: number;
-  setCurrentWeek: any;
+  selectedWeek: number;
+  setSelectedWeek: any;
 }
 
 export const MealPlan = ({
-  currentWeek,
-  setCurrentWeek
+  selectedWeek,
+  setSelectedWeek
 }: ControlPanelProps) => {
   const [data, setData] = useState<UserMealPlan[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -261,13 +262,18 @@ export const MealPlan = ({
         <thead>
           <tr>
             <th></th>
-            <th>Day 64</th>
-            <th className="currentDay">Day 65</th>
-            <th>Day 66</th>
-            <th>Day 67</th>
-            <th>Day 68</th>
-            <th>Day 69</th>
-            <th>Day 70</th>
+            {userSchedule.dietDays
+              .slice()
+              .reverse()
+              .map((dietDay, key) => (
+                <th
+                  key={key}
+                  className={dietDay === 7 - currentDay ? 'currentDay' : ''}
+                >
+                  Day {selectedWeek * 7 - dietDay}
+                </th>
+              ))}
+            <th>Day {selectedWeek * 7}</th>
           </tr>
         </thead>
         <tbody>
@@ -276,10 +282,12 @@ export const MealPlan = ({
               <span>6:00 </span>am
             </td>
             {data
+              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
               .filter(meal => meal.mealNumber === 1)
               .map((meal, key) => (
                 <td
                   key={key}
+                  // poniższy warunek (oraz analogiczne) do zmiany (dla pełnej bazy danych) - zamiast sekwencji dnia -> numer dnia np. według wzoru użytego w thead oraz odczytanie dzisiejszego dnia z obiektu Date (dodatkowo odczytanie daty pierwszego dnia diety dla punktu odniesienia w czasie)
                   className={meal.day === currentDay ? 'currentDay' : ''}
                 >
                   <CellContent>
@@ -316,6 +324,7 @@ export const MealPlan = ({
               <span>9:00 </span>am
             </td>
             {data
+              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
               .filter(meal => meal.mealNumber === 2)
               .map((meal, key) => (
                 <td
@@ -348,6 +357,7 @@ export const MealPlan = ({
               <span>12:00 </span>pm
             </td>
             {data
+              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
               .filter(meal => meal.mealNumber === 3)
               .map((meal, key) => (
                 <td
@@ -380,6 +390,7 @@ export const MealPlan = ({
               <span>3:00 </span>pm
             </td>
             {data
+              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
               .filter(meal => meal.mealNumber === 4)
               .map((meal, key) => (
                 <td
@@ -412,6 +423,7 @@ export const MealPlan = ({
               <span>6:00 </span>pm
             </td>
             {data
+              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
               .filter(meal => meal.mealNumber === 5)
               .map((meal, key) => (
                 <td
@@ -441,12 +453,18 @@ export const MealPlan = ({
           </tr>
           <DietTypeTableRow>
             <td></td>
-            <td>low-carb</td>
-            <td className="currentDay">low-carb</td>
-            <td>high-carb</td>
-            <td>low-carb</td>
-            <td>low-carb</td>
-            <td>high-carb</td>
+            {userSchedule.dietDays.map((dietDay, key) => (
+              <td
+                key={key}
+                className={dietDay === currentDay ? 'currentDay' : ''}
+              >
+                {data
+                  .filter(meal => meal.day === dietDay)
+                  .filter(meal => meal.mealName.includes('HC')).length > 0
+                  ? 'high-carb'
+                  : 'low-carb'}
+              </td>
+            ))}
             <td rowSpan={2}>
               <span>
                 <BiPrinter /> Print
