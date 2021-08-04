@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { GiBroccoli } from 'react-icons/gi';
 import { GiCheeseWedge } from 'react-icons/gi';
 import { GiSteak } from 'react-icons/gi';
 import { GiFriedFish } from 'react-icons/gi';
 import { GiChickenOven } from 'react-icons/gi';
+import { userSchedule } from '../data/userSchedule';
 
 const StyledParagraph = styled.p`
   text-transform: uppercase;
@@ -26,7 +28,7 @@ const IconsGroup = styled.div`
   }
 `;
 
-const StyledBroccoliIcon = styled(GiBroccoli)`
+const StyledVegetablesIcon = styled(GiBroccoli)`
   height: 28px;
   width: 28px;
   &.active {
@@ -34,7 +36,7 @@ const StyledBroccoliIcon = styled(GiBroccoli)`
   }
 `;
 
-const StyledCheeseIcon = styled(GiCheeseWedge)`
+const StyledDairyIcon = styled(GiCheeseWedge)`
   height: 28px;
   width: 28px;
   margin-left: 10px;
@@ -43,7 +45,7 @@ const StyledCheeseIcon = styled(GiCheeseWedge)`
   }
 `;
 
-const StyledSteakIcon = styled(GiSteak)`
+const StyledBeefIcon = styled(GiSteak)`
   height: 28px;
   width: 28px;
   margin-left: 10px;
@@ -61,7 +63,7 @@ const StyledFishIcon = styled(GiFriedFish)`
   }
 `;
 
-const StyledChickenIcon = styled(GiChickenOven)`
+const StyledPoultryIcon = styled(GiChickenOven)`
   height: 28px;
   width: 28px;
   margin-left: 10px;
@@ -71,15 +73,59 @@ const StyledChickenIcon = styled(GiChickenOven)`
 `;
 
 export const ProteinOptions = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedOption, setSelectedOption] = useState([
+    'Vegetables',
+    'Dairy',
+    'Beef'
+  ]);
+
   return (
     <div>
       <StyledParagraph>Select your protein options</StyledParagraph>
       <IconsGroup>
-        <StyledBroccoliIcon className="active" />
-        <StyledCheeseIcon className="active" />
-        <StyledSteakIcon className="active" />
-        <StyledFishIcon />
-        <StyledChickenIcon />
+        {/* eslint-disable-next-line array-callback-return */}
+        {userSchedule.dietProteinOptions.map((dietOption, key) => {
+          switch (dietOption.name) {
+            case 'Vegetables':
+              return (
+                <StyledVegetablesIcon
+                  key={key}
+                  className={
+                    selectedOption.includes('Vegetables') ? 'active' : ''
+                  }
+                />
+              );
+            case 'Dairy':
+              return (
+                <StyledDairyIcon
+                  key={key}
+                  className={selectedOption.includes('Dairy') ? 'active' : ''}
+                />
+              );
+            case 'Beef':
+              return (
+                <StyledBeefIcon
+                  key={key}
+                  className={selectedOption.includes('Beef') ? 'active' : ''}
+                />
+              );
+            case 'Fish':
+              return (
+                <StyledFishIcon
+                  key={key}
+                  className={selectedOption.includes('Fish') ? 'active' : ''}
+                />
+              );
+            case 'Poultry':
+              return (
+                <StyledPoultryIcon
+                  key={key}
+                  className={selectedOption.includes('Poultry') ? 'active' : ''}
+                />
+              );
+          }
+        })}
       </IconsGroup>
     </div>
   );
