@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { AiOutlineRight } from 'react-icons/ai';
-import { weeks } from '../data/weeks';
+import { userSchedule } from '../data/userSchedule';
 
 const Root = styled.div`
   display: flex;
@@ -18,6 +18,7 @@ const StyledButton = styled.button`
   padding: 0 2px;
   font-size: 18px;
   height: 42px;
+  transition: all 1.5s ease;
   &:disabled {
     color: ${props => props.theme.lightGray};
     border: 1px solid ${props => props.theme.lightGray};
@@ -26,6 +27,7 @@ const StyledButton = styled.button`
     color: ${props => props.theme.lightGray};
     border: 1px solid ${props => props.theme.graphite};
     background: ${props => props.theme.graphite};
+    transition: all 1.5s ease;
     &:disabled {
       color: ${props => props.theme.lightGray};
       background: ${props => props.theme.lightGray};
@@ -49,31 +51,34 @@ const StyledParagraph = styled.p`
 `;
 
 interface ControlPanelProps {
-  currentWeek: number;
-  setCurrentWeek: any;
-};
+  selectedWeek: number;
+  setSelectedWeek: any;
+}
 
 export const WeekSlider = ({
-  currentWeek,
-  setCurrentWeek
+  selectedWeek,
+  setSelectedWeek
 }: ControlPanelProps) => {
   function goToNextWeek() {
-    setCurrentWeek((sequence: number) => sequence + 1);
-  };
+    setSelectedWeek((sequence: number) => sequence + 1);
+  }
 
   function goToPreviousWeek() {
-    setCurrentWeek((sequence: number) => sequence - 1);
-  };
+    setSelectedWeek((sequence: number) => sequence - 1);
+  }
 
   return (
     <Root>
-      <StyledButton onClick={goToPreviousWeek} disabled={currentWeek === 1}>
+      <StyledButton onClick={goToPreviousWeek} disabled={selectedWeek === 1}>
         <AiOutlineLeft />
       </StyledButton>
-      <StyledParagraph>{weeks[currentWeek - 1].name}</StyledParagraph>
+      <StyledParagraph>
+        {userSchedule.dietWeeks[selectedWeek - 1].name}{' '}
+        {userSchedule.dietWeeks[selectedWeek - 1].sequence}
+      </StyledParagraph>
       <StyledButton
         onClick={goToNextWeek}
-        disabled={currentWeek === 12 && true}
+        disabled={selectedWeek === userSchedule.dietWeeks.length}
       >
         <AiOutlineRight />
       </StyledButton>
