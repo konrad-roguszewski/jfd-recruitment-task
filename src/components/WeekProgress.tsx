@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { GiPlainCircle } from 'react-icons/gi';
 import { GiCircle } from 'react-icons/gi';
+import { userSchedule } from '../data/userSchedule';
 
 const Root = styled.div`
   display: flex;
@@ -42,38 +43,46 @@ const ProgressSection = styled.div`
   width: 12px;
   &:first-child {
     margin-left: 0px;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    bottom: 86%;
-    width: 14px;
-    border-bottom: 2px solid ${props => props.theme.darkGray};
-  }
-  &.active {
-    &:before {
+    &:after {
       content: '';
       position: absolute;
       left: 10px;
       bottom: 86%;
       width: 14px;
+      border-bottom: 2px solid ${props => props.theme.lightGray};
+    }
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 9.6px;
+    bottom: 86%;
+    width: 14px;
+    border-bottom: 2px solid ${props => props.theme.darkGray};
+  }
+  &.active {
+    &:after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      bottom: 86%;
+      width: 14px;
       border-bottom: 2px solid ${props => props.theme.green};
     }
   }
-`;
-
-const LastProgressSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 10px;
+  &:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+  }
 `;
 
 const PlainCircleIcon = styled(GiPlainCircle)`
   height: 10px;
   width: 10px;
   color: ${props => props.theme.darkGray};
+  z-index: 1;
   &.active {
     color: ${props => props.theme.green};
   }
@@ -85,59 +94,36 @@ const CircleIcon = styled(GiCircle)`
   color: ${props => props.theme.darkGray};
 `;
 
-export const WeekProgress = () => {
+interface ControlPanelProps {
+  currentWeek: number;
+  setCurrentWeek: any;
+}
+
+export const WeekProgress = ({
+  currentWeek,
+  setCurrentWeek
+}: ControlPanelProps) => {
   return (
     <Root>
-      <StyledTitle>Your 12 week progress</StyledTitle>
+      <StyledTitle>
+        Your {userSchedule.dietWeeks.length} week progress
+      </StyledTitle>
       <ProgressBar>
-        <ProgressSection className="active">
-          <PlainCircleIcon className="active" />
-          <StyledParagraph>1</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection className="active">
-          <PlainCircleIcon className="active" />
-          <StyledParagraph>2</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection className="active">
-          <PlainCircleIcon className="active" />
-          <StyledParagraph>3</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection className="active">
-          <PlainCircleIcon className="active" />
-          <StyledParagraph>4</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection className="active">
-          <PlainCircleIcon className="active" />
-          <StyledParagraph>5</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection>
-          <PlainCircleIcon className="active" />
-          <StyledParagraph>6</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection>
-          <CircleIcon />
-          <StyledParagraph>7</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection>
-          <PlainCircleIcon />
-          <StyledParagraph>8</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection>
-          <PlainCircleIcon />
-          <StyledParagraph>9</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection>
-          <PlainCircleIcon />
-          <StyledParagraph>10</StyledParagraph>
-        </ProgressSection>
-        <ProgressSection>
-          <PlainCircleIcon />
-          <StyledParagraph>11</StyledParagraph>
-        </ProgressSection>
-        <LastProgressSection>
-          <PlainCircleIcon />
-          <StyledParagraph>12</StyledParagraph>
-        </LastProgressSection>
+        {userSchedule.dietWeeks.map((dietWeek, key) => (
+          <ProgressSection
+            key={key}
+            className={dietWeek.sequence < currentWeek ? 'active' : ''}
+          >
+            {dietWeek.sequence === currentWeek ? (
+              <CircleIcon />
+            ) : (
+              <PlainCircleIcon
+                className={dietWeek.sequence < currentWeek ? 'active' : ''}
+              />
+            )}
+            <StyledParagraph>{dietWeek.sequence}</StyledParagraph>
+          </ProgressSection>
+        ))}
       </ProgressBar>
     </Root>
   );
