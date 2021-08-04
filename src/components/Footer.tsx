@@ -49,10 +49,13 @@ const StyledButton = styled.button`
   font-size: 18px;
   margin-right: 10px;
   height: 36px;
+  z-index: 1;
+  transition: all 1.5s ease;
   &:hover {
     color: ${props => props.theme.lightGray};
     border: 1px solid ${props => props.theme.graphite};
     background: ${props => props.theme.graphite};
+    transition: all 1s ease;
   }
 `;
 
@@ -75,6 +78,7 @@ const InfoPanel = styled.div`
     height: 90%;
     width: 100%;
     border-right: 1px solid ${props => props.theme.darkGray};
+    z-index: -1;
     @media screen and (max-width: 768px) {
       border-right: 1px solid ${props => props.theme.lightGray};
     }
@@ -84,6 +88,7 @@ const InfoPanel = styled.div`
     position: relative;
     z-index: 1;
     &:after {
+      z-index: -1;
       content: '';
       position: absolute;
       top: 16px;
