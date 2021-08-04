@@ -158,7 +158,7 @@ const DietTypeTableRow = styled.tr`
   }
   td:first-child {
     border-right: 2px solid ${props => props.theme.mediumGray};
-    border-top: 2px solid ${props => props.theme.mediumGray};
+    border-top: thick solid ${props => props.theme.mediumGray};
   }
   td:last-child {
     border-bottom: 0;
@@ -224,6 +224,7 @@ const WorkoutTableRow = styled.tr`
 `;
 
 const Root = styled.div`
+  overflow-y: auto;
   @media screen and (max-width: 768px) {
     overflow-x: auto;
   }
@@ -258,6 +259,7 @@ export const MealPlan = ({
 
   return (
     <Root>
+      {/* TODO: rozbić komponent tabeli na subkomponenty */}
       <StyledTable>
         <thead>
           <tr>
@@ -277,180 +279,57 @@ export const MealPlan = ({
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <span>6:00 </span>am
-            </td>
-            {data
-              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
-              .filter(meal => meal.mealNumber === 1)
-              .map((meal, key) => (
-                <td
-                  key={key}
-                  // poniższy warunek (oraz analogiczne) do zmiany (dla pełnej bazy danych) - zamiast sekwencji dnia -> numer dnia np. według wzoru użytego w thead oraz odczytanie dzisiejszego dnia z obiektu Date (dodatkowo odczytanie daty pierwszego dnia diety dla punktu odniesienia w czasie)
-                  className={meal.day === currentDay ? 'currentDay' : ''}
-                >
-                  <CellContent>
-                    <span
-                      className={meal.day === currentDay ? 'currentDay' : ''}
-                    >
-                      {meal.mealName}
-                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
+          {userSchedule.dietHours.map((dietHour, key) => (
+            <tr key={key}>
+              <td>
+                <span>{dietHour.hour} </span>
+                {dietHour.suffix}
+              </td>
+              {data
+                // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
+                .filter(meal => meal.mealNumber === dietHour.sequence)
+                .map((meal, key) => (
+                  <td
+                    key={key}
+                    // TODO: poniższy warunek (oraz analogiczne) do zmiany (dla pełnej bazy danych) - zamiast sekwencji dnia -> numer dnia np. według wzoru użytego w thead oraz odczytanie dzisiejszego dnia z obiektu Date (dodatkowo odczytanie daty pierwszego dnia diety dla punktu odniesienia w czasie)
+                    className={meal.day === currentDay ? 'currentDay' : ''}
+                  >
+                    <CellContent>
+                      <span
+                        className={meal.day === currentDay ? 'currentDay' : ''}
+                      >
+                        {meal.mealName}
+                        {meal.isMealDone ? <CheckMarkIcon /> : ''}
+                      </span>
+                      {meal.mealName === 'Bod•ē Shake' ? (
+                        <img
+                          src={
+                            meal.day === currentDay
+                              ? shakeActive
+                              : shakeDisabled
+                          }
+                          alt="shake"
+                        />
+                      ) : (
+                        ''
+                      )}
+                    </CellContent>
+                  </td>
+                ))}
+              {dietHour.sequence === 1 ? (
+                <td rowSpan={userSchedule.dietHours.length}>
+                  <LastDayContent>
+                    <span>
+                      <BiHappy />
+                      Guilt-free day
                     </span>
-                    {meal.mealName === 'Bod•ē Shake' ? (
-                      <img
-                        src={
-                          meal.day === currentDay ? shakeActive : shakeDisabled
-                        }
-                        alt="shake"
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </CellContent>
+                  </LastDayContent>
                 </td>
-              ))}
-            <td rowSpan={5}>
-              <LastDayContent>
-                <span>
-                  <BiHappy />
-                  Guilt-free day
-                </span>
-              </LastDayContent>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span>9:00 </span>am
-            </td>
-            {data
-              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
-              .filter(meal => meal.mealNumber === 2)
-              .map((meal, key) => (
-                <td
-                  key={key}
-                  className={meal.day === currentDay ? 'currentDay' : ''}
-                >
-                  <CellContent>
-                    <span
-                      className={meal.day === currentDay ? 'currentDay' : ''}
-                    >
-                      {meal.mealName}
-                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
-                    </span>
-                    {meal.mealName === 'Bod•ē Shake' ? (
-                      <img
-                        src={
-                          meal.day === currentDay ? shakeActive : shakeDisabled
-                        }
-                        alt="shake"
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </CellContent>
-                </td>
-              ))}
-          </tr>
-          <tr>
-            <td>
-              <span>12:00 </span>pm
-            </td>
-            {data
-              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
-              .filter(meal => meal.mealNumber === 3)
-              .map((meal, key) => (
-                <td
-                  key={key}
-                  className={meal.day === currentDay ? 'currentDay' : ''}
-                >
-                  <CellContent>
-                    <span
-                      className={meal.day === currentDay ? 'currentDay' : ''}
-                    >
-                      {meal.mealName}
-                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
-                    </span>
-                    {meal.mealName === 'Bod•ē Shake' ? (
-                      <img
-                        src={
-                          meal.day === currentDay ? shakeActive : shakeDisabled
-                        }
-                        alt="shake"
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </CellContent>
-                </td>
-              ))}
-          </tr>
-          <tr>
-            <td>
-              <span>3:00 </span>pm
-            </td>
-            {data
-              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
-              .filter(meal => meal.mealNumber === 4)
-              .map((meal, key) => (
-                <td
-                  key={key}
-                  className={meal.day === currentDay ? 'currentDay' : ''}
-                >
-                  <CellContent>
-                    <span
-                      className={meal.day === currentDay ? 'currentDay' : ''}
-                    >
-                      {meal.mealName}
-                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
-                    </span>
-                    {meal.mealName === 'Bod•ē Shake' ? (
-                      <img
-                        src={
-                          meal.day === currentDay ? shakeActive : shakeDisabled
-                        }
-                        alt="shake"
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </CellContent>
-                </td>
-              ))}
-          </tr>
-          <tr>
-            <td style={{ borderBottom: '0px' }}>
-              <span>6:00 </span>pm
-            </td>
-            {data
-              // .filter(meal => meal.week === selectedWeek) // w przypadku danych ze wszystkimi tygodniami
-              .filter(meal => meal.mealNumber === 5)
-              .map((meal, key) => (
-                <td
-                  key={key}
-                  className={meal.day === currentDay ? 'currentDay' : ''}
-                >
-                  <CellContent>
-                    <span
-                      className={meal.day === currentDay ? 'currentDay' : ''}
-                    >
-                      {meal.mealName}
-                      {meal.isMealDone ? <CheckMarkIcon /> : ''}
-                    </span>
-                    {meal.mealName === 'Bod•ē Shake' ? (
-                      <img
-                        src={
-                          meal.day === currentDay ? shakeActive : shakeDisabled
-                        }
-                        alt="shake"
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </CellContent>
-                </td>
-              ))}
-          </tr>
+              ) : (
+                null
+              )}
+            </tr>
+          ))}
           <DietTypeTableRow>
             <td></td>
             {userSchedule.dietDays.map((dietDay, key) => (
@@ -472,6 +351,7 @@ export const MealPlan = ({
             </td>
           </DietTypeTableRow>
           <WorkoutTableRow>
+            {/* TODO: mapowanie ikon po dniach oraz nowy stan dotyczący zaznaczenia*/}
             <td>
               <span>
                 Workout <BiCaretRight />
