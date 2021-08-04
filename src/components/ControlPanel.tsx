@@ -15,18 +15,28 @@ const Root = styled.div`
 `;
 
 interface ControlPanelProps {
+  selectedWeek: number;
+  setSelectedWeek: any;
   currentWeek: number;
   setCurrentWeek: any;
 }
 
 export const ControlPanel = ({
+  selectedWeek,
+  setSelectedWeek,
   currentWeek,
   setCurrentWeek
 }: ControlPanelProps) => {
   return (
     <Root>
-      <WeekProgress />
-      <WeekSlider currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
+      <WeekProgress
+        currentWeek={currentWeek}
+        setCurrentWeek={setCurrentWeek}
+      />
+      <WeekSlider
+        selectedWeek={selectedWeek}
+        setSelectedWeek={setSelectedWeek}
+      />
       <ProteinOptions />
     </Root>
   );

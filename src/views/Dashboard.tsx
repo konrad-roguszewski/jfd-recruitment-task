@@ -21,12 +21,18 @@ const Root = styled.div`
 `;
 
 export const Dashboard = () => {
-  const [currentWeek, setCurrentWeek] = useState(7);
+  const [currentWeek, setCurrentWeek] = useState(7); // docelowo wartość domyślna będzie pochodzić z obiektu Date
+  const [selectedWeek, setSelectedWeek] = useState(currentWeek);
 
   return (
     <Root>
-      <ControlPanel currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
-      <MealPlan currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
+      <ControlPanel
+        selectedWeek={selectedWeek}
+        setSelectedWeek={setSelectedWeek}
+        currentWeek={currentWeek}
+        setCurrentWeek={setCurrentWeek}
+      />
+      <MealPlan selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek} />
     </Root>
   );
 };
