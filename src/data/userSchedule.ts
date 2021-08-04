@@ -3,87 +3,96 @@ export const userSchedule = {
   dietWeeks: [
     {
       name: 'Week',
-      sequence: 1,
-      isWeekDone: true
+      sequence: 1
     },
     {
       name: 'Week',
-      sequence: 2,
-      isWeekDone: true
+      sequence: 2
     },
     {
       name: 'Week',
-      sequence: 3,
-      isWeekDone: true
+      sequence: 3
     },
     {
       name: 'Week',
-      sequence: 4,
-      isWeekDone: true
+      sequence: 4
     },
     {
       name: 'Week',
-      sequence: 5,
-      isWeekDone: true
+      sequence: 5
     },
     {
       name: 'Week',
-      sequence: 6,
-      isWeekDone: true
+      sequence: 6
     },
     {
       name: 'Week',
-      sequence: 7,
-      isWeekDone: false
+      sequence: 7
     },
     {
       name: 'Week',
-      sequence: 8,
-      isWeekDone: false
+      sequence: 8
     },
     {
       name: 'Week',
-      sequence: 9,
-      isWeekDone: false
+      sequence: 9
     },
     {
       name: 'Week',
-      sequence: 10,
-      isWeekDone: false
+      sequence: 10
     },
     {
       name: 'Week',
-      sequence: 11,
-      isWeekDone: false
+      sequence: 11
     },
     {
       name: 'Week',
-      sequence: 12,
-      isWeekDone: false
+      sequence: 12
     }
   ],
   dietDays: [1, 2, 3, 4, 5, 6],
   dietHours: [
     {
       hour: '6:00',
-      suffix: 'am'
+      suffix: 'am',
+      sequence: 1
     },
     {
       hour: '9:00',
-      suffix: 'am'
+      suffix: 'am',
+      sequence: 2
     },
     {
       hour: '12:00',
-      suffix: 'pm'
+      suffix: 'pm',
+      sequence: 3
     },
     {
       hour: '3:00',
-      suffix: 'pm'
+      suffix: 'pm',
+      sequence: 4
     },
     {
       hour: '6:00',
-      suffix: 'pm'
+      suffix: 'pm',
+      sequence: 5
     }
   ],
-  dietProteinOptions: ['vegetables', 'dairy', 'beef', 'fish', 'poultry']
+  dietProteinOptions: [
+    {
+      name: 'Vegetables'
+    },
+    {
+      name: 'Dairy'
+    },
+    {
+      name: 'Beef'
+    },
+    {
+      name: 'Fish'
+    },
+    {
+      name: 'Poultry'
+    }
+  ]
 };
